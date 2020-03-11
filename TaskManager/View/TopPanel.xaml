@@ -6,8 +6,12 @@
              xmlns:local="clr-namespace:TaskManager.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Margin="0,0,0,370">
-        <Label Content="Label" HorizontalAlignment="Left" Margin="42,24,0,0" VerticalAlignment="Top" Height="41" Width="160"/>
-
+    <Grid Grid.Row="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="0" Content="Connect" Command="{Binding ConnectPlc}"/>
+        <Button Grid.Column="1" Content="Disconnect" Command="{Binding DisconnectPlc}"/>
     </Grid>
-</UserControl>
+    </UserControl>
