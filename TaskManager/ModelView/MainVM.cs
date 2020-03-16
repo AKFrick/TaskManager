@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using Prism.Commands;
 using System.Windows;
 using System;
+using TaskManager.View.NewTask;
 
 namespace TaskManager.ModelView
 {
@@ -14,22 +15,16 @@ namespace TaskManager.ModelView
     {
         public MainVM()
         {
-            NewID = 2;
-            AddTask = new DelegateCommand(() =>
+            CreateNewTask = new DelegateCommand(() =>
             {
-                using (var db = new IMS189Database())
-                {
-                    var task = new Task { Number = "New 123", Item = "item 32", TargetCount = 5 };
-                    db.Tasks.Add(task);
-                    db.SaveChanges();
-                    NewID = task.ID;
-                    RaisePropertyChanged(nameof(NewID));
-                }
-            }
-            );
+                NewTaskWindow newTaskWindow = new NewTaskWindow();
+                newTaskWindow.ShowDialog();
+            });
+            //TaskList = new ObservableCollection<Task>()
         }
 
         public DelegateCommand AddTask { get; }
-        public int NewID { get; set; }
+        public DelegateCommand CreateNewTask { get; }
+        public ObservableCollection<Task> TaskList { get; }        
     }
 }

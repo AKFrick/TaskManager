@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TaskManager.View.NewTask
+namespace TaskManager.View.Main
 {
     /// <summary>
-    /// Interaction logic for CreateNewTask.xaml
+    /// Interaction logic for TaskList.xaml
     /// </summary>
-    public partial class CreateNewTask : Window
+    public partial class TaskList : UserControl
     {
-        public CreateNewTask()
+        public TaskList()
         {
             InitializeComponent();
         }

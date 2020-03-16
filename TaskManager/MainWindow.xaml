@@ -31,8 +31,7 @@
             <Button Grid.Column="1" Content="История заданий" Margin="5" Height="50" Width="120"/>
         </Grid>
         <!--Centre Content-->
-        <Button Command="{Binding AddTask}" Content="AddTask" HorizontalAlignment="Left" Margin="154,115,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" />
-        <Label Content="{Binding NewID}" HorizontalAlignment="Left" Margin="243,112,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        
         <!--Bottom panel-->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
@@ -40,7 +39,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="2" Content="Создать задание" Margin="5,5,5,5" Width="120" Height="50"/>
+            <Button Command="{Binding CreateNewTask}" Grid.Column="2" Content="Создать задание" Margin="5,5,5,5" Width="120" Height="50"/>
         </Grid>
     </Grid>
 </Window>
