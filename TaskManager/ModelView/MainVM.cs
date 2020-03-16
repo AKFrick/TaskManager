@@ -8,6 +8,7 @@ using Prism.Commands;
 using System.Windows;
 using System;
 using TaskManager.View.NewTask;
+using TaskManager.Model;
 
 namespace TaskManager.ModelView
 {
@@ -20,7 +21,7 @@ namespace TaskManager.ModelView
                 NewTaskWindow newTaskWindow = new NewTaskWindow();
                 newTaskWindow.ShowDialog();
             });
-            //TaskList = new ObservableCollection<Task>()
+            TaskList = new ObservableCollection<Task>(new CurrentTasks().Tasks);
         }
 
         public DelegateCommand AddTask { get; }

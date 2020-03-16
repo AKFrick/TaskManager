@@ -20,20 +20,19 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Border Style="{DynamicResource BlueBorder}"  Grid.Column="1">
+                <Border Style="{DynamicResource BlueBorder}"  Grid.Column="0">
                     <TextBlock Margin="5" FontSize="15" Text="{ Binding Number }"/>
                 </Border>
-                <Border Style="{DynamicResource BlueBorder}" Grid.Column="0">
+                <Border Style="{DynamicResource BlueBorder}" Grid.Column="1">
                     <TextBlock Margin="5" FontSize="15" Text="{ Binding Item }" />
                 </Border>
-                <Border Style="{DynamicResource BlueBorder}" Grid.Column="0">
+                <Border Style="{DynamicResource BlueBorder}" Grid.Column="2">
                     <TextBlock Margin="5" FontSize="15" Text="{ Binding TargetCount }" />
                 </Border>
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
-        <ListBox Grid.Row="1" Name="messages" ItemsSource="{Binding Messages}" />
-
+        <ListBox Grid.Row="1" Name="Tasks" ItemsSource="{Binding TaskList}" />
     </Grid>
 </UserControl>
