@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TaskManager.View
+namespace TaskManager.View.NewTask
 {
     /// <summary>
-    /// Interaction logic for TopPanel.xaml
+    /// Interaction logic for CreateNewTask.xaml
     /// </summary>
-    public partial class TopPanel : UserControl
+    public partial class CreateNewTask : Window
     {
-        public TopPanel()
+        public CreateNewTask()
         {
             InitializeComponent();
         }
