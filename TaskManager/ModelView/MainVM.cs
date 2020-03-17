@@ -21,11 +21,20 @@ namespace TaskManager.ModelView
                 NewTaskWindow newTaskWindow = new NewTaskWindow();
                 newTaskWindow.ShowDialog();
             });
-            TaskList = new ObservableCollection<Task>(new CurrentTasks().Tasks);
+            currentTasks = new CurrentTasks();
+            TaskList = new ObservableCollection<Task>(currentTasks.Tasks);
+            currentTasks.PropertyChanged += (s, a) => RaisePropertyChanged(nameof(CallCount));
+            currentTasks.PropertyChanged += (s, a) =>
+            {
+                TaskList = new ObservableCollection<Task>(currentTasks.Tasks);
+            };
+            
         }
 
         public DelegateCommand AddTask { get; }
         public DelegateCommand CreateNewTask { get; }
-        public ObservableCollection<Task> TaskList { get; }        
+        public ObservableCollection<Task> TaskList { get; private set; }
+        private CurrentTasks currentTasks;
+        public int CallCount => currentTasks.CallCount;
     }
 }
