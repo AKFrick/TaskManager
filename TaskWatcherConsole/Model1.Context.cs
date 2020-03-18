@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TaskManager
+namespace TaskWatcherConsole
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class IMS189Database : DbContext
+    public partial class IMS189Entities : DbContext
     {
-        public IMS189Database()
-            : base("name=IMS189Db")
+        public IMS189Entities()
+            : base("name=IMS189Entities")
         {
         }
     

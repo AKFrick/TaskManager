@@ -8,8 +8,9 @@ namespace TaskWatcherConsole
     {
         [OperationContract]
         void Subscribe();
-
         [OperationContract]
         void Unsubscribe();
+        [OperationContract]
+        IList<Task> GetTasks();
     }
 }

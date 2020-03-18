@@ -33,7 +33,7 @@
           <Property Name="StartSerial" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
           <Property Name="TargetCount" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="IMS189Db" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="IMS189Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Tasks" EntityType="Self.Task" />
         </EntityContainer>
       </Schema>
@@ -41,7 +41,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="IMS189ModelStoreContainer" CdmEntityContainer="IMS189Db">
+        <EntityContainerMapping StorageEntityContainer="IMS189ModelStoreContainer" CdmEntityContainer="IMS189Entities">
           <EntitySetMapping Name="Tasks">
             <EntityTypeMapping TypeName="IMS189Model.Task">
               <MappingFragment StoreEntitySet="Tasks">

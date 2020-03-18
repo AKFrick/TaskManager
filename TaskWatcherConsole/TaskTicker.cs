@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.ServiceModel;
 using TableDependency.SqlClient;
 using TableDependency.SqlClient.Base.EventArgs;
+using System.Linq;
 
 namespace TaskWatcherConsole
 {
@@ -22,14 +23,13 @@ namespace TaskWatcherConsole
             sqlTableDependency.OnChanged += TableDependency_Changed;
             sqlTableDependency.OnError += (sender, args) => Console.WriteLine($"Error: {args.Message}");
             sqlTableDependency.Start();
-           // Console.WriteLine(sqlTableDependency.Status);
         }
         private void TableDependency_Changed(object sender, RecordChangedEventArgs<Task> e)
         {
             Console.WriteLine(Environment.NewLine);
             Console.WriteLine($"DML: {e.ChangeType}");
             Console.WriteLine($"ID: {e.Entity.ID}");
-            Console.WriteLine($"Item: {e.Entity.Item}");            
+            Console.WriteLine($"Item: {e.Entity.Item}");              
         }        
 
         public void Subscribe()
@@ -50,7 +50,31 @@ namespace TaskWatcherConsole
             }
         }
 
-
+        public void PublishTaskChanged(RecordChangedEventArgs<Task> task)
+        {            
+            foreach(ITaskCallback client in callbackList)
+            {
+                if (task.ChangeType == TableDependency.SqlClient.Base.Enums.ChangeType.Insert)
+                    client.TaskInserted((Task)task.Entity);
+                else if (task.ChangeType == TableDependency.SqlClient.Base.Enums.ChangeType.Update)
+                    client.TaskChanged((Task)task.Entity);
+                else if (task.ChangeType == TableDependency.SqlClient.Base.Enums.ChangeType.Delete)
+                    client.TaskDeleted((Task)task.Entity);
+            }            
+        }
+        public IList<Task> GetTasks()
+        {
+            List<Task> tasks = new List<Task>();
+            using (var db = new IMS189Entities())
+            {
+                var query = from b in db.Tasks select b;                
+                foreach (Task task in query)
+                {
+                    tasks.Add(task);
+                }                                
+            }
+            return tasks;
+        }
 
         public void Dispose()
         {
