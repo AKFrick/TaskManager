@@ -9,6 +9,7 @@ using System.Windows;
 using System;
 using TaskManager.View.NewTask;
 using TaskManager.Model;
+using TaskManager.TaskProxy;
 
 namespace TaskManager.ModelView
 {
@@ -23,18 +24,19 @@ namespace TaskManager.ModelView
             });
             currentTasks = new CurrentTasks();
             TaskList = new ObservableCollection<Task>(currentTasks.Tasks);
-            currentTasks.PropertyChanged += (s, a) => RaisePropertyChanged(nameof(CallCount));
-            currentTasks.PropertyChanged += (s, a) =>
+            ((INotifyCollectionChanged)currentTasks.Tasks).CollectionChanged += (s, a) =>
             {
-                TaskList = new ObservableCollection<Task>(currentTasks.Tasks);
+                if (a.NewItems?.Count == 1)
+                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                        TaskList.Add(a.NewItems[0] as Task)));
+                if (a.OldItems?.Count == 1)
+                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                        TaskList.Remove(a.OldItems[0] as Task)));
             };
-            
         }
-
         public DelegateCommand AddTask { get; }
         public DelegateCommand CreateNewTask { get; }
         public ObservableCollection<Task> TaskList { get; private set; }
         private CurrentTasks currentTasks;
-        public int CallCount => currentTasks.CallCount;
     }
 }

@@ -29,7 +29,9 @@ namespace TaskWatcherConsole
             Console.WriteLine(Environment.NewLine);
             Console.WriteLine($"DML: {e.ChangeType}");
             Console.WriteLine($"ID: {e.Entity.ID}");
-            Console.WriteLine($"Item: {e.Entity.Item}");              
+            Console.WriteLine($"Item: {e.Entity.Item}");
+
+            PublishTaskChanged(e);
         }        
 
         public void Subscribe()

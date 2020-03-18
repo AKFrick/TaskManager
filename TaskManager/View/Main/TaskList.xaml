@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TaskManager"             
+             xmlns:local="clr-namespace:TaskManager"  
+             xmlns:service="clr-namespace:TaskManager.TaskProxy"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -13,7 +14,7 @@
             <Setter Property="Border.BorderBrush" Value="SteelBlue"/>
             <Setter Property="Border.CornerRadius" Value="4"/>
         </Style>
-        <DataTemplate DataType="{x:Type local:Task}">
+        <DataTemplate DataType="{x:Type service:Task}">
             <Grid Margin="0.5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
