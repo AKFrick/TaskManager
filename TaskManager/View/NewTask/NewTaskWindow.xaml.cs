@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TaskManager.ModelView;
 
 namespace TaskManager.View.NewTask
 {
@@ -19,9 +20,10 @@ namespace TaskManager.View.NewTask
     /// </summary>
     public partial class NewTaskWindow : Window
     {
-        public NewTaskWindow()
+        public NewTaskWindow(NewTaskVM newTaskVM)
         {
             InitializeComponent();
+            DataContext = newTaskVM;
         }
     }
 }

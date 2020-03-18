@@ -17,12 +17,13 @@ namespace TaskManager.ModelView
     {
         public MainVM()
         {
+            currentTasks = new CurrentTasks();
             CreateNewTask = new DelegateCommand(() =>
             {
-                NewTaskWindow newTaskWindow = new NewTaskWindow();
+                NewTaskVM newTaskVM = new NewTaskVM(currentTasks);
+                NewTaskWindow newTaskWindow = new NewTaskWindow(newTaskVM);                                
                 newTaskWindow.ShowDialog();
-            });
-            currentTasks = new CurrentTasks();
+            });            
             TaskList = new ObservableCollection<Task>(currentTasks.Tasks);
             ((INotifyCollectionChanged)currentTasks.Tasks).CollectionChanged += (s, a) =>
             {
@@ -37,6 +38,18 @@ namespace TaskManager.ModelView
         public DelegateCommand AddTask { get; }
         public DelegateCommand CreateNewTask { get; }
         public ObservableCollection<Task> TaskList { get; private set; }
-        private CurrentTasks currentTasks;
+        private CurrentTasks currentTasks;               
+        
+    }
+    public class NewTaskVM : BindableBase
+    {
+        public Task task { get; set; } = new Task();
+        public DelegateCommand Create { get; }
+        CurrentTasks currentTasks;
+        public NewTaskVM(CurrentTasks currentTasks)
+        {
+            this.currentTasks = currentTasks;
+            Create = new DelegateCommand(() => currentTasks.InsertNewTask(task));            
+        }
     }
 }

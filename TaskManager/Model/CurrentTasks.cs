@@ -35,5 +35,9 @@ namespace TaskManager.Model
         {
             throw new System.NotImplementedException();
         }
+        public void InsertNewTask(Task task)
+        {
+            proxy.InsertTask(task);
+        }
     }
 }

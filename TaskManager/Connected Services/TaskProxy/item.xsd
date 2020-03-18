@@ -33,10 +33,24 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="TaskInserted">
+  <xs:element name="InsertTask">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/TaskWatcherConsole" minOccurs="0" name="task" nillable="true" type="q2:Task" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertTaskResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/TaskWatcherConsole" minOccurs="0" name="InsertTaskResult" nillable="true" type="q3:Task" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TaskInserted">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/TaskWatcherConsole" minOccurs="0" name="task" nillable="true" type="q4:Task" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -48,7 +62,7 @@
   <xs:element name="TaskDeleted">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/TaskWatcherConsole" minOccurs="0" name="task" nillable="true" type="q3:Task" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/TaskWatcherConsole" minOccurs="0" name="task" nillable="true" type="q5:Task" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -60,7 +74,7 @@
   <xs:element name="TaskChanged">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/TaskWatcherConsole" minOccurs="0" name="task" nillable="true" type="q4:Task" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/TaskWatcherConsole" minOccurs="0" name="task" nillable="true" type="q6:Task" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

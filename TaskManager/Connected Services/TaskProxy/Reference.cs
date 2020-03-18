@@ -143,6 +143,12 @@ namespace TaskManager.TaskProxy {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITaskTicker/GetTasks", ReplyAction="http://tempuri.org/ITaskTicker/GetTasksResponse")]
         System.Threading.Tasks.Task<TaskManager.TaskProxy.Task[]> GetTasksAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITaskTicker/InsertTask", ReplyAction="http://tempuri.org/ITaskTicker/InsertTaskResponse")]
+        TaskManager.TaskProxy.Task InsertTask(TaskManager.TaskProxy.Task task);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITaskTicker/InsertTask", ReplyAction="http://tempuri.org/ITaskTicker/InsertTaskResponse")]
+        System.Threading.Tasks.Task<TaskManager.TaskProxy.Task> InsertTaskAsync(TaskManager.TaskProxy.Task task);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -208,6 +214,14 @@ namespace TaskManager.TaskProxy {
         
         public System.Threading.Tasks.Task<TaskManager.TaskProxy.Task[]> GetTasksAsync() {
             return base.Channel.GetTasksAsync();
+        }
+        
+        public TaskManager.TaskProxy.Task InsertTask(TaskManager.TaskProxy.Task task) {
+            return base.Channel.InsertTask(task);
+        }
+        
+        public System.Threading.Tasks.Task<TaskManager.TaskProxy.Task> InsertTaskAsync(TaskManager.TaskProxy.Task task) {
+            return base.Channel.InsertTaskAsync(task);
         }
     }
 }

@@ -83,5 +83,14 @@ namespace TaskWatcherConsole
             sqlTableDependency.Stop();
         }
 
+        public Task InsertTask(Task task)
+        {
+            using (var db = new IMS189Entities())
+            {
+                db.Tasks.Add(task);
+                db.SaveChanges();
+            }
+            return task;
+        }
     }
 }

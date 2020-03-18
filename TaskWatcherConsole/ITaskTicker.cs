@@ -12,5 +12,7 @@ namespace TaskWatcherConsole
         void Unsubscribe();
         [OperationContract]
         IList<Task> GetTasks();
+        [OperationContract]
+        Task InsertTask(Task task);
     }
 }
