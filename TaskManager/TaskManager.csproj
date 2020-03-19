@@ -90,6 +90,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ModelView\MainVM.cs" />
+    <Compile Include="ModelView\NewTaskVM.cs" />
     <Compile Include="Model\CurrentTasks.cs" />
     <Compile Include="Model\Log.cs" />
     <Compile Include="Model\PlcProxy.cs" />

@@ -4,15 +4,14 @@ namespace TaskManager.Model
 {
     public interface IPlcProxy
     {
-        bool SendTaskToPlc(Task task);
+        void SendTaskToPlc(Task task);
     }
     public class PlcProxy : IPlcProxy
     {
-        public bool SendTaskToPlc(Task task)
+        public void SendTaskToPlc(Task task)
         {
             ILog log = Log.GetLog();
-            log.logThis(task.PrintToString());
-            return true;
+            log.logThis(task.PrintToString());            
         }
     }
 }
