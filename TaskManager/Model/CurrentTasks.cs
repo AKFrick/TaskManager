@@ -8,13 +8,27 @@ using TaskManager.TaskProxy;
 namespace TaskManager.Model
 {
     public class CurrentTasks : BindableBase, ITaskTickerCallback
-    {        
-        public CurrentTasks()
+    {
+        private static CurrentTasks instance;
+        private static object syncLock = new object();
+        private CurrentTasks()
         {            
             proxy = new TaskTickerClient(new InstanceContext(this));
             proxy.Subscribe();
             tasks = new ObservableCollection<Task>(proxy.GetTasks());
             Tasks = new ReadOnlyObservableCollection<Task>(tasks);
+        }
+        public static CurrentTasks Instance()
+        {
+            if (instance == null)
+            {
+                lock (syncLock)
+                {
+                    if (instance == null)
+                        instance = new CurrentTasks();
+                }
+            }
+            return instance;
         }
         private readonly TaskTickerClient proxy;
         private ObservableCollection<Task> tasks;
@@ -27,7 +41,6 @@ namespace TaskManager.Model
 
         public void TaskDeleted(Task task)
         {
-            //tasks.Remove(task);
             tasks.Remove(tasks.Where(item => item.ID == task.ID).Single());
         }
 

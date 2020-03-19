@@ -3,8 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TaskManager"
-        xmlns:views="clr-namespace:TaskManager.View"
         xmlns:mainViews ="clr-namespace:TaskManager.View.Main"
         xmlns:modelViews="clr-namespace:TaskManager.ModelView"
         mc:Ignorable="d"

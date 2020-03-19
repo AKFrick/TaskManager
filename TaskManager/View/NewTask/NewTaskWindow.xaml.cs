@@ -20,10 +20,9 @@ namespace TaskManager.View.NewTask
     /// </summary>
     public partial class NewTaskWindow : Window
     {
-        public NewTaskWindow(NewTaskVM newTaskVM)
+        public NewTaskWindow()
         {
             InitializeComponent();
-            DataContext = newTaskVM;
         }
     }
 }

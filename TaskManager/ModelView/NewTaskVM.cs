@@ -9,11 +9,9 @@ namespace TaskManager.ModelView
     {
         public Task task { get; }
         public DelegateCommand Create { get; }
-        CurrentTasks currentTasks;
-        public NewTaskVM(CurrentTasks currentTasks)
+        public NewTaskVM()
         {
-            this.currentTasks = currentTasks;
-            Create = new DelegateCommand(() => currentTasks.InsertNewTask(task));
+            Create = new DelegateCommand(() => CurrentTasks.Instance().InsertNewTask(task));
         }
     }
 }

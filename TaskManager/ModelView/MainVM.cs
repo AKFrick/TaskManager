@@ -17,12 +17,11 @@ namespace TaskManager.ModelView
     {
         public MainVM()
         {
-            currentTasks = new CurrentTasks();
-            TaskList = new ObservableCollection<Task>(currentTasks.Tasks);
+            TaskList = new ObservableCollection<Task>(CurrentTasks.Instance().Tasks);
             CreateNewTask = new DelegateCommand(createNewTask);
             StartTask = new DelegateCommand(startTask);
 
-        ((INotifyCollectionChanged)currentTasks.Tasks).CollectionChanged += (s, a) =>
+        ((INotifyCollectionChanged)CurrentTasks.Instance().Tasks).CollectionChanged += (s, a) =>
             {
                 if (a.NewItems?.Count == 1)
                     Application.Current.Dispatcher.BeginInvoke(new Action(() =>
@@ -36,8 +35,7 @@ namespace TaskManager.ModelView
         public DelegateCommand CreateNewTask { get; }
         private void createNewTask()
         {
-            NewTaskVM newTaskVM = new NewTaskVM(currentTasks);
-            NewTaskWindow newTaskWindow = new NewTaskWindow(newTaskVM);
+            NewTaskWindow newTaskWindow = new NewTaskWindow();
             newTaskWindow.ShowDialog();
         }
         public DelegateCommand StartTask { get; }
@@ -47,8 +45,6 @@ namespace TaskManager.ModelView
             if (SelectedTask != null) plcProxy.SendTaskToPlc(SelectedTask);
         }
         public ObservableCollection<Task> TaskList { get; private set; }
-        public Task SelectedTask { get; set; }
-        private CurrentTasks currentTasks;               
-        
+        public Task SelectedTask { get; set; }                   
     }
 }
