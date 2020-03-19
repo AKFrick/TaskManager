@@ -10,7 +10,7 @@ namespace TaskManager.Model
     {
         public bool SendTaskToPlc(Task task)
         {
-            ILog log = new Log();
+            ILog log = Log.GetLog();
             log.logThis(task.PrintToString());
             return true;
         }

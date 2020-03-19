@@ -18,19 +18,11 @@ namespace TaskManager.ModelView
         public MainVM()
         {
             currentTasks = new CurrentTasks();
-            CreateNewTask = new DelegateCommand(() =>
-            {
-                NewTaskVM newTaskVM = new NewTaskVM(currentTasks);
-                NewTaskWindow newTaskWindow = new NewTaskWindow(newTaskVM);                                
-                newTaskWindow.ShowDialog();
-            });
-            StartTask = new DelegateCommand(() =>
-            {
-                IPlcProxy plcProxy = new PlcProxy();
-                plcProxy.SendTaskToPlc(SelectedTask);
-            });
             TaskList = new ObservableCollection<Task>(currentTasks.Tasks);
-            ((INotifyCollectionChanged)currentTasks.Tasks).CollectionChanged += (s, a) =>
+            CreateNewTask = new DelegateCommand(createNewTask);
+            StartTask = new DelegateCommand(startTask);
+
+        ((INotifyCollectionChanged)currentTasks.Tasks).CollectionChanged += (s, a) =>
             {
                 if (a.NewItems?.Count == 1)
                     Application.Current.Dispatcher.BeginInvoke(new Action(() =>
@@ -42,7 +34,18 @@ namespace TaskManager.ModelView
         }
         public DelegateCommand AddTask { get; }
         public DelegateCommand CreateNewTask { get; }
+        private void createNewTask()
+        {
+            NewTaskVM newTaskVM = new NewTaskVM(currentTasks);
+            NewTaskWindow newTaskWindow = new NewTaskWindow(newTaskVM);
+            newTaskWindow.ShowDialog();
+        }
         public DelegateCommand StartTask { get; }
+        private void startTask()
+        {
+            IPlcProxy plcProxy = new PlcProxy();
+            plcProxy.SendTaskToPlc(SelectedTask);
+        }
         public ObservableCollection<Task> TaskList { get; private set; }
         public Task SelectedTask { get; set; }
         private CurrentTasks currentTasks;               
