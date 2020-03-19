@@ -2,12 +2,23 @@
 
 namespace TaskManager.Model
 {
-    public interface IPlcProxy
+    public class PlcProxy
     {
-        void SendTaskToPlc(Task task);
-    }
-    public class PlcProxy : IPlcProxy
-    {
+        private static PlcProxy instance;
+        private static object syncLock = new object();
+        private PlcProxy() { }
+        public static PlcProxy Instance()
+        {
+            if (instance == null)
+            {
+                lock (syncLock)
+                {
+                    if (instance == null)
+                        instance = new PlcProxy();
+                }
+            }
+            return instance;
+        }
         public void SendTaskToPlc(Task task)
         {            
             Log.GetLog().logThis($"Испытание отправлено в ПЛК: {task.PrintToString()}");            

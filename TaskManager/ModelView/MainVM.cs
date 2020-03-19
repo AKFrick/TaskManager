@@ -40,9 +40,8 @@ namespace TaskManager.ModelView
         }
         public DelegateCommand StartTask { get; }
         private void startTask()
-        {
-            IPlcProxy plcProxy = new PlcProxy();
-            if (SelectedTask != null) plcProxy.SendTaskToPlc(SelectedTask);
+        {            
+            if (SelectedTask != null) PlcProxy.Instance().SendTaskToPlc(SelectedTask);
         }
         public ObservableCollection<Task> TaskList { get; private set; }
         public Task SelectedTask { get; set; }                   

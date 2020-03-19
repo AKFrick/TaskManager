@@ -8,10 +8,7 @@ namespace TaskManager.Model
     {
         private static Log instance;
         private static object syncLock = new object();
-        private Log()
-        {
-
-        }
+        private Log() { }
         public static Log GetLog()
         {
             if (instance == null)
