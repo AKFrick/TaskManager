@@ -23,7 +23,12 @@ namespace TaskManager.ModelView
                 NewTaskVM newTaskVM = new NewTaskVM(currentTasks);
                 NewTaskWindow newTaskWindow = new NewTaskWindow(newTaskVM);                                
                 newTaskWindow.ShowDialog();
-            });            
+            });
+            StartTask = new DelegateCommand(() =>
+            {
+                IPlcProxy plcProxy = new PlcProxy();
+                plcProxy.SendTaskToPlc(SelectedTask);
+            });
             TaskList = new ObservableCollection<Task>(currentTasks.Tasks);
             ((INotifyCollectionChanged)currentTasks.Tasks).CollectionChanged += (s, a) =>
             {
@@ -37,13 +42,15 @@ namespace TaskManager.ModelView
         }
         public DelegateCommand AddTask { get; }
         public DelegateCommand CreateNewTask { get; }
+        public DelegateCommand StartTask { get; }
         public ObservableCollection<Task> TaskList { get; private set; }
+        public Task SelectedTask { get; set; }
         private CurrentTasks currentTasks;               
         
     }
     public class NewTaskVM : BindableBase
     {
-        public Task task { get; set; } = new Task();
+        public Task task { get; }
         public DelegateCommand Create { get; }
         CurrentTasks currentTasks;
         public NewTaskVM(CurrentTasks currentTasks)

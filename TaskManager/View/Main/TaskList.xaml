@@ -34,6 +34,6 @@
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
-        <ListBox Grid.Row="1" Name="Tasks" ItemsSource="{Binding TaskList}" />
+        <ListBox Grid.Row="1" Name="Tasks" ItemsSource="{Binding TaskList}" SelectedItem="{Binding SelectedTask}"/>
     </Grid>
 </UserControl>

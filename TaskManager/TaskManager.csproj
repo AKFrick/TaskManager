@@ -91,6 +91,9 @@
     </Compile>
     <Compile Include="ModelView\MainVM.cs" />
     <Compile Include="Model\CurrentTasks.cs" />
+    <Compile Include="Model\Log.cs" />
+    <Compile Include="Model\PlcProxy.cs" />
+    <Compile Include="Model\TaskHelper.cs" />
     <Compile Include="View\Main\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
