@@ -44,7 +44,7 @@ namespace TaskManager.ModelView
         private void startTask()
         {
             IPlcProxy plcProxy = new PlcProxy();
-            plcProxy.SendTaskToPlc(SelectedTask);
+            if (SelectedTask != null) plcProxy.SendTaskToPlc(SelectedTask);
         }
         public ObservableCollection<Task> TaskList { get; private set; }
         public Task SelectedTask { get; set; }

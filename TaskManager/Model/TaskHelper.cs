@@ -6,7 +6,7 @@ namespace TaskManager.Model
     {
         public static string PrintToString(this Task task)
         {
-            return $"ID:{task.ID}, Number:{task.Number}, Item:{task.Item}, TargetCount:{task.TargetCount}";
+            return $"ID:{task.ID}, Number:{task.Number.Trim()}, Item:{task.Item.Trim()}, TargetCount:{task.TargetCount}";
         }
     }
 }

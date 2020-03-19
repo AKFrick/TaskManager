@@ -4,11 +4,7 @@ using System.Threading;
 
 namespace TaskManager.Model
 {
-    public interface ILog
-    {
-        void logThis(string msg);
-    }
-    public class Log : ILog
+    public class Log
     {
         private static Log instance;
         private static object syncLock = new object();
@@ -30,7 +26,7 @@ namespace TaskManager.Model
         }
         public void logThis(string msg)
         {            
-            File.AppendAllText("Log.txt", msg + Environment.NewLine );
+            File.AppendAllText("Log.txt", $"{DateTime.Now.ToString()}:{msg}{Environment.NewLine}");
         }
     }
 }

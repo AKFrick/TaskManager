@@ -9,9 +9,8 @@ namespace TaskManager.Model
     public class PlcProxy : IPlcProxy
     {
         public void SendTaskToPlc(Task task)
-        {
-            ILog log = Log.GetLog();
-            log.logThis(task.PrintToString());            
+        {            
+            Log.GetLog().logThis($"Испытание отправлено в ПЛК: {task.PrintToString()}");            
         }
     }
 }
