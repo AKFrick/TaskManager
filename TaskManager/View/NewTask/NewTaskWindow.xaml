@@ -7,9 +7,6 @@
         xmlns:modelViews="clr-namespace:TaskManager.ModelView"
         mc:Ignorable="d"
         Title="CreateNewTask" Height="483.501" Width="330.986">
-    <Window.DataContext>
-        <modelViews:NewTaskVM/>
-    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

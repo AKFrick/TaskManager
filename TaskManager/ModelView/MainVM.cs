@@ -18,7 +18,7 @@ namespace TaskManager.ModelView
         public MainVM()
         {
             TaskList = new ObservableCollection<Task>(CurrentTasks.Instance().Tasks);
-            CreateNewTask = new DelegateCommand(createNewTask);
+            OpenNewTaskWindow = new DelegateCommand(openNewTaskWindow);
             StartTask = new DelegateCommand(startTask);
 
         ((INotifyCollectionChanged)CurrentTasks.Instance().Tasks).CollectionChanged += (s, a) =>
@@ -32,12 +32,13 @@ namespace TaskManager.ModelView
             };
         }
         public DelegateCommand AddTask { get; }
-        public DelegateCommand CreateNewTask { get; }
-        private void createNewTask()
+        public DelegateCommand OpenNewTaskWindow { get; }
+        NewTaskWindow newTaskWindow;
+        private void openNewTaskWindow()
         {
-            NewTaskWindow newTaskWindow = new NewTaskWindow();
+            newTaskWindow = new NewTaskWindow(new NewTaskVM());            
             newTaskWindow.ShowDialog();
-        }
+        }      
         public DelegateCommand StartTask { get; }
         private void startTask()
         {            
