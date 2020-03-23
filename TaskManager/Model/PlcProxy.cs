@@ -1,4 +1,8 @@
 ﻿using TaskManager.TaskProxy;
+using Workstation.ServiceModel.Ua;
+using Workstation.ServiceModel.Ua.Channels;
+using System;
+using System.Threading.Tasks;
 
 namespace TaskManager.Model
 {
@@ -19,9 +23,21 @@ namespace TaskManager.Model
             }
             return instance;
         }
-        public void SendTaskToPlc(Task task)
-        {            
+        public void SendTaskToPlc(TaskProxy.Task task)
+        {
+            OpcUa opc = new OpcUa();
+            // opc.SendTask(task).Wait();
+            try
+            {
+                opc.UaClient().Wait();
+            }
+            catch (Exception ex)
+            {
+                Log.GetLog().logThis(ex.Message);
+            }
+
             Log.GetLog().logThis($"Испытание отправлено в ПЛК: {task.PrintToString()}");            
         }
+       
     }
 }

@@ -1,61 +1,67 @@
-﻿using System.ComponentModel;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Prism.Mvvm;
-using System.Linq;
-using System.Collections.Specialized;
-using Prism.Commands;
-using System.Windows;
-using System;
-using TaskManager.View.NewTask;
-using TaskManager.Model;
+﻿using System;
 using TaskManager.TaskProxy;
+using System.Threading.Tasks;
 using Workstation.ServiceModel.Ua;
 using Workstation.ServiceModel.Ua.Channels;
 
-namespace TaskManager.ModelView
+
+namespace TaskManager.Model
 {
-    class MainVM : BindableBase
+    public class OpcUa
     {
-        public MainVM()
+        ApplicationDescription clientDescription;
+        UaTcpSessionChannel channel;
+        CallResponse callResponse;
+        string ServerUri = "opc.tcp://192.168.10.2:4840";
+        CallMethodRequest callMethodRequest = new CallMethodRequest
         {
-            //TaskList = new ObservableCollection<Task>(CurrentTasks.Instance().Tasks);
-            OpenNewTaskWindow = new DelegateCommand(openNewTaskWindow);
-            StartTask = new DelegateCommand(startTask);
-        
-        ((INotifyCollectionChanged)CurrentTasks.Instance().Tasks).CollectionChanged += (s, a) =>
+            ObjectId = new NodeId("\"SendNewTask\"", 3),
+            MethodId = new NodeId("\"SendNewTask\".Method", 3)
+        };
+        public OpcUa()
+        {
+            clientDescription = new ApplicationDescription
             {
-                if (a.NewItems?.Count == 1)
-                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                        TaskList.Add(a.NewItems[0] as Task)));
-                if (a.OldItems?.Count == 1)
-                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                        TaskList.Remove(a.OldItems[0] as Task)));
-            }; 
+                ApplicationName = "Promatis.UaClient",
+                ApplicationUri = $"urn:{System.Net.Dns.GetHostName()}:Promatis.UaClient",
+                ApplicationType = ApplicationType.Client
+            };
+            channel = new UaTcpSessionChannel(
+                clientDescription,
+                null,
+                new AnonymousIdentity(),
+                ServerUri,
+                SecurityPolicyUris.None);
         }
-        public DelegateCommand AddTask { get; }
-        public DelegateCommand OpenNewTaskWindow { get; }
-        NewTaskWindow newTaskWindow;
-        private void openNewTaskWindow()
+        public async System.Threading.Tasks.Task SendTask(TaskProxy.Task task)
         {
-            newTaskWindow = new NewTaskWindow(new NewTaskVM());            
-            newTaskWindow.ShowDialog();
-        }      
-        public DelegateCommand StartTask { get; }
-        private void startTask()
-        {
-            //if (SelectedTask != null) PlcProxy.Instance().SendTaskToPlc(SelectedTask);
             try
             {
-                UaClient().Wait();
+                Log.GetLog().logThis($"Отправляем испытание");
+                await channel.OpenAsync();
+                Log.GetLog().logThis($"открыли коннект");
+                callMethodRequest.InputArguments = new Variant[]
+                {
+                    new Variant((Int16)task.ID),
+                    new Variant((String)task.Number),
+                    new Variant((String)task.Item),
+                    new Variant((String)task.StartSerial),
+                    new Variant((Int16)task.TargetCount),
+                };
+                CallRequest callRequest = new CallRequest
+                {
+                    MethodsToCall = new[] { callMethodRequest }
+                };
+                Log.GetLog().logThis($"Испытание отправлено в ПЛК: {task.PrintToString()}");
+                callResponse = await channel.CallAsync(callRequest);
+                await channel.CloseAsync();                
             }
             catch (Exception ex)
             {
+                await channel.AbortAsync();
                 Log.GetLog().logThis(ex.Message);
             }
         }
-        public ObservableCollection<Task> TaskList { get; private set; }
-        public Task SelectedTask { get; set; }
         public async System.Threading.Tasks.Task UaClient()
         {
             // describe this client application.
