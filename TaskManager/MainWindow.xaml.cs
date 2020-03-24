@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaskManager.View;
+using TaskManager.Model;
+
 
 namespace TaskManager
 {
@@ -24,6 +26,6 @@ namespace TaskManager
         public MainWindow()
         {
             InitializeComponent();            
-        }
+        }        
     }
 }
