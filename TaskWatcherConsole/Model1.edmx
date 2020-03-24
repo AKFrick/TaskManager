@@ -4,22 +4,21 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="IMS189Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="IMS189Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Tasks">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Number" Type="char" MaxLength="25" />
-          <Property Name="Item" Type="nchar" MaxLength="150" />
-          <Property Name="StartSerial" Type="nchar" MaxLength="15" />
+          <Property Name="Number" Type="nvarchar" MaxLength="25" />
+          <Property Name="Item" Type="nvarchar" MaxLength="150" />
+          <Property Name="StartSerial" Type="nvarchar" MaxLength="15" />
           <Property Name="TargetCount" Type="int" Nullable="false" />
         </EntityType>
         <EntityContainer Name="IMS189ModelStoreContainer">
           <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="IMS189Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -28,9 +27,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Number" Type="String" MaxLength="25" FixedLength="true" Unicode="false" />
-          <Property Name="Item" Type="String" MaxLength="150" FixedLength="true" Unicode="true" />
-          <Property Name="StartSerial" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="Number" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Item" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="StartSerial" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="TargetCount" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityContainer Name="IMS189Entities" annotation:LazyLoadingEnabled="true">
